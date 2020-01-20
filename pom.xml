@@ -10,7 +10,6 @@
     <modules>
         <module>core-api</module>
         <module>language-packs</module>
-        <module>en</module>
         <module>web</module>
         <module>modules</module>
     </modules>
