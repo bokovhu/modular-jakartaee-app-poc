@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>me.bokov</groupId>
+    <artifactId>task-app</artifactId>
+    <version>1.0.0-SNAPSHOT</version>
+    <modules>
+        <module>core-api</module>
+        <module>language-packs</module>
+        <module>en</module>
+        <module>web</module>
+        <module>modules</module>
+    </modules>
+
+    <packaging>pom</packaging>
+
+    <repositories>
+        <repository>
+            <id>prime-repository</id>
+            <url>https://repository.primefaces.org/</url>
+        </repository>
+    </repositories>
+
+    <properties>
+
+        <version.maven.compiler>3.8.1</version.maven.compiler>
+        <version.maven.jar>3.2.0</version.maven.jar>
+        <version.maven.ear>3.0.2</version.maven.ear>
+        <version.maven.ejb>3.0.1</version.maven.ejb>
+        <version.maven.war>3.2.3</version.maven.war>
+
+        <java.source>11</java.source>
+        <java.target>11</java.target>
+        <java.encoding>UTF-8</java.encoding>
+
+        <version.wildfly.bom>18.0.1.Final</version.wildfly.bom>
+        <version.jakarta.platform.api>8.0.0</version.jakarta.platform.api>
+        <version.primefaces>8.0.RC2</version.primefaces>
+        <version.omnifaces>3.4.1</version.omnifaces>
+        <version.slf4j>1.7.28</version.slf4j>
+        <version.lombok>1.18.10</version.lombok>
+
+    </properties>
+
+    <dependencyManagement>
+
+        <dependencies>
+
+            <dependency>
+                <groupId>org.wildfly.bom</groupId>
+                <artifactId>wildfly-jakartaee8-with-tools</artifactId>
+                <version>${version.wildfly.bom}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>jakarta.platform</groupId>
+                <artifactId>jakarta.jakartaee-api</artifactId>
+                <version>${version.jakarta.platform.api}</version>
+                <scope>provided</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>org.primefaces</groupId>
+                <artifactId>primefaces</artifactId>
+                <version>${version.primefaces}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.omnifaces</groupId>
+                <artifactId>omnifaces</artifactId>
+                <version>${version.omnifaces}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.slf4j</groupId>
+                <artifactId>slf4j-api</artifactId>
+                <version>${version.slf4j}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.projectlombok</groupId>
+                <artifactId>lombok</artifactId>
+                <version>${version.lombok}</version>
+            </dependency>
+
+        </dependencies>
+
+    </dependencyManagement>
+
+    <build>
+
+        <pluginManagement>
+
+            <plugins>
+
+                <plugin>
+
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-compiler-plugin</artifactId>
+                    <version>${version.maven.compiler}</version>
+                    <configuration>
+                        <source>${java.source}</source>
+                        <target>${java.target}</target>
+                        <encoding>${java.encoding}</encoding>
+                    </configuration>
+
+                </plugin>
+
+                <plugin>
+
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-jar-plugin</artifactId>
+                    <version>${version.maven.jar}</version>
+
+                </plugin>
+
+                <plugin>
+
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-ear-plugin</artifactId>
+                    <version>${version.maven.ear}</version>
+                    <configuration>
+                        <generateApplicationXml>false</generateApplicationXml>
+                    </configuration>
+
+                </plugin>
+
+                <plugin>
+
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-war-plugin</artifactId>
+                    <version>${version.maven.war}</version>
+                    <configuration>
+                        <failOnMissingWebXml>false</failOnMissingWebXml>
+                    </configuration>
+
+                </plugin>
+
+                <plugin>
+
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-ejb-plugin</artifactId>
+                    <version>${version.maven.ejb}</version>
+
+                </plugin>
+
+            </plugins>
+
+        </pluginManagement>
+
+    </build>
+
+</project>
