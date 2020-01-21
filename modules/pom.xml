@@ -17,6 +17,9 @@
         <module>config-module</module>
         <module>task-module</module>
         <module>task-logger-module</module>
+        <module>user-module</module>
+        <module>login-module</module>
+        <module>external-web-resources-module</module>
     </modules>
 
 </project>

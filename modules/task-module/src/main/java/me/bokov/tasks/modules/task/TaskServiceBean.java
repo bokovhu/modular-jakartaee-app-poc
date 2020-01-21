@@ -1,81 +1,92 @@
 package me.bokov.tasks.modules.task;
 
-import me.bokov.tasks.core.model.domain.Task;
-import me.bokov.tasks.core.model.event.TaskEvent;
-import me.bokov.tasks.core.task.TaskService;
+import me.bokov.tasks.core.common.domain.TaskVO;
+import me.bokov.tasks.core.common.event.TaskEvent;
+import me.bokov.tasks.core.service.TaskService;
+import me.bokov.tasks.dal.dao.TaskDao;
+import me.bokov.tasks.dal.entity.TaskEntity;
+import me.bokov.tasks.modules.task.util.TaskVOConverter;
+import me.bokov.tasks.dal.dao.UserDao;
 
-import javax.ejb.ConcurrencyManagement;
-import javax.ejb.ConcurrencyManagementType;
-import javax.ejb.Local;
-import javax.ejb.Singleton;
+import javax.ejb.*;
 import javax.enterprise.event.Event;
 import javax.inject.Inject;
-import java.time.LocalDateTime;
 import java.util.*;
+import java.util.stream.Collectors;
 
-@Singleton
+@Stateless
 @Local (TaskService.class)
-@ConcurrencyManagement (ConcurrencyManagementType.CONTAINER)
+@TransactionAttribute (TransactionAttributeType.REQUIRED)
 public class TaskServiceBean implements TaskService {
 
+    @EJB
+    private TaskDao taskDao;
+
+    @EJB
+    private UserDao userDao;
+
     @Inject
-    private Event <TaskEvent> taskEvent;
+    private Event<TaskEvent> taskEvent;
 
-    private final Map <String, Task> tasks = new HashMap<> ();
+    @Inject
+    private TaskVOConverter taskVOConverter;
 
     @Override
-    public Task createTask (Task task) {
+    public TaskVO createTask (TaskVO task) {
 
-        task.setId (UUID.randomUUID ().toString ());
-        tasks.put (task.getId (), task);
+        TaskEntity taskEntity = new TaskEntity ();
 
-        taskEvent.fire (
-                new TaskEvent (
-                        TaskEvent.Action.CREATED,
-                        task.getId (),
-                        task,
-                        LocalDateTime.now ()
-                )
-        );
+        if (task.getAssigneeId () != null) {
+            taskEntity.setAssignee (userDao.findById (task.getAssigneeId ()));
+        }
 
-        return task;
+        taskEntity.setSummary (task.getSummary ());
+        taskEntity.setDescription (task.getDescription ());
+        taskEntity.setStatus (task.getStatus ());
+
+        taskDao.create (taskEntity);
+
+        return taskVOConverter.taskEntityToVO (taskEntity);
     }
 
     @Override
-    public void updateTask (Task task) {
+    public void updateTask (TaskVO task) {
 
-        tasks.put (task.getId (), task);
+        TaskEntity taskEntity = taskDao.findById (task.getId ());
 
-        taskEvent.fire (
-                new TaskEvent (
-                        TaskEvent.Action.UPDATED,
-                        task.getId (),
-                        task,
-                        LocalDateTime.now ()
-                )
-        );
+        if (taskEntity != null) {
 
-    }
+            if (task.getAssigneeId () != null) {
+                taskEntity.setAssignee (userDao.findById (task.getAssigneeId ()));
+            } else {
+                taskEntity.setAssignee (null);
+            }
 
-    @Override
-    public void removeTask (Task task) {
+            taskEntity.setSummary (task.getSummary ());
+            taskEntity.setDescription (task.getDescription ());
+            taskEntity.setStatus (task.getStatus ());
 
-        tasks.remove (task.getId ());
-
-        taskEvent.fire (
-                new TaskEvent (
-                        TaskEvent.Action.DELETED,
-                        task.getId (),
-                        null,
-                        LocalDateTime.now ()
-                )
-        );
+        }
 
     }
 
     @Override
-    public List<Task> getAllTasks () {
-        return new ArrayList<> (tasks.values ());
+    public void removeTask (TaskVO task) {
+
+        TaskEntity taskEntity = taskDao.findById (task.getId ());
+
+        if (taskEntity != null) {
+            taskDao.delete (taskEntity);
+        }
+
+    }
+
+    @Override
+    public List<TaskVO> getAllTasks () {
+        return taskDao.findAll ()
+                .stream ()
+                .map (taskVOConverter::taskEntityToVO)
+                .collect (Collectors.toList ());
     }
 
 }

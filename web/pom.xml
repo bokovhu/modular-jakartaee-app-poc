@@ -39,8 +39,14 @@
     <dependencies>
 
         <dependency>
-            <groupId>me.bokov.tasks</groupId>
+            <groupId>me.bokov.tasks.core</groupId>
             <artifactId>core-api</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>me.bokov.tasks.core</groupId>
+            <artifactId>data-access-layer</artifactId>
             <version>${project.version}</version>
         </dependency>
 
@@ -71,6 +77,24 @@
         <dependency>
             <groupId>me.bokov.tasks.modules</groupId>
             <artifactId>task-logger-module</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>me.bokov.tasks.modules</groupId>
+            <artifactId>user-module</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>me.bokov.tasks.modules</groupId>
+            <artifactId>login-module</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>me.bokov.tasks.modules</groupId>
+            <artifactId>external-web-resources-module</artifactId>
             <version>${project.version}</version>
         </dependency>
 

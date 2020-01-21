@@ -1,97 +1,117 @@
 package me.bokov.tasks.modules.config;
 
-import me.bokov.tasks.core.config.Category;
-import me.bokov.tasks.core.config.ConfigurationService;
-import me.bokov.tasks.core.config.Property;
+import me.bokov.tasks.core.common.config.Category;
+import me.bokov.tasks.core.common.config.Property;
+import me.bokov.tasks.core.service.ConfigurationService;
+import me.bokov.tasks.dal.dao.CategoryDao;
+import me.bokov.tasks.dal.dao.PropertyDao;
+import me.bokov.tasks.dal.entity.CategoryEntity;
+import me.bokov.tasks.dal.entity.PropertyEntity;
 
 import javax.ejb.*;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
-@Singleton
+@Stateless
 @Local (ConfigurationService.class)
-@ConcurrencyManagement (ConcurrencyManagementType.CONTAINER)
+@TransactionAttribute (TransactionAttributeType.REQUIRED)
 public class ConfigurationServiceBean implements ConfigurationService {
 
-    private Map <String, Map <String, String>> configuration = new HashMap<> ();
+    @EJB
+    private CategoryDao categoryDao;
+
+    @EJB
+    private PropertyDao propertyDao;
 
     @Override
-    @Lock (LockType.READ)
     public Category getCategory (String name) {
 
-        Map <String, String> propertiesMap = configuration.get (name);
+        CategoryEntity categoryEntity = categoryDao.findByName (name);
+        if (categoryEntity == null) return null;
 
-        if (propertiesMap == null) return null;
-
-        Map <String, Property> properties = new HashMap<> ();
-        for (Map.Entry <String, String> propertyEntry : propertiesMap.entrySet ()) {
-            properties.put (
-                    propertyEntry.getKey (),
+        Map <String, Property> categoryPropertyMap = new HashMap<> ();
+        for (PropertyEntity propertyEntity : categoryEntity.getProperties ()) {
+            categoryPropertyMap.put (
+                    propertyEntity.getKey (),
                     new Property (
-                            propertyEntry.getKey (),
-                            propertyEntry.getValue ()
+                            propertyEntity.getKey (),
+                            propertyEntity.getValue ()
                     )
             );
         }
 
-        return new Category (name, properties);
+        return new Category (categoryEntity.getName (), categoryPropertyMap);
     }
 
     @Override
-    @Lock (LockType.WRITE)
     public void addCategory (String name) {
 
-        configuration.put (name, new HashMap<> ());
+        CategoryEntity categoryEntity = new CategoryEntity ();
+        categoryEntity.setName (name);
+        categoryDao.create (categoryEntity);
 
     }
 
     @Override
-    @Lock (LockType.WRITE)
     public void removeCategory (String name) {
 
-        configuration.remove (name);
+        CategoryEntity categoryEntity = categoryDao.findByName (name);
+        if (categoryEntity != null) {
+            categoryDao.delete (categoryEntity);
+        }
 
     }
 
     @Override
-    @Lock (LockType.WRITE)
     public void setProperty (String categoryName, String propertyKey, String propertyValue) {
 
-        Map <String, String> categoryProperties = configuration.get (categoryName);
-        if (categoryProperties == null) categoryProperties = new HashMap<> ();
+        CategoryEntity categoryEntity = categoryDao.findByNameOrCreateNew (categoryName);
+        PropertyEntity propertyEntity = propertyDao.findByCategoryAndKeyOrCreateNew (
+                categoryEntity.getId (),
+                propertyKey
+        );
 
-        categoryProperties.put (propertyKey, propertyValue);
-
-        configuration.put (categoryName, categoryProperties);
+        propertyEntity.setValue (propertyValue);
 
     }
 
     @Override
-    @Lock (LockType.WRITE)
     public void removeProperty (String categoryName, String propertyKey) {
 
-        Map <String, String> categoryProperties = configuration.get (categoryName);
-        if (categoryProperties == null) return;
+        CategoryEntity categoryEntity = categoryDao.findByName (categoryName);
+        if (categoryEntity != null) {
 
-        categoryProperties.remove (propertyKey);
+            PropertyEntity propertyEntity = propertyDao.findByCategoryAndKey (
+                    categoryEntity.getId (),
+                    propertyKey
+            );
+            if (propertyEntity != null) {
+                propertyDao.delete (propertyEntity);
+            }
 
-        configuration.put (categoryName, categoryProperties);
+        }
 
     }
 
     @Override
-    @Lock (LockType.READ)
     public Property getProperty (String categoryName, String propertyKey) {
 
-        Map <String, String> categoryProperties = configuration.get (categoryName);
-        if (categoryProperties == null) return null;
 
-        String entryValue = categoryProperties.get (propertyKey);
-        if (entryValue == null) return null;
+        CategoryEntity categoryEntity = categoryDao.findByName (categoryName);
+        if (categoryEntity != null) {
 
-        return new Property (propertyKey, entryValue);
+            PropertyEntity propertyEntity = propertyDao.findByCategoryAndKey (
+                    categoryEntity.getId (),
+                    propertyKey
+            );
+
+            if (propertyEntity != null) {
+                return new Property (propertyEntity.getKey (), propertyEntity.getValue ());
+            }
+
+        }
+
+        return null;
     }
 
 }

@@ -2,8 +2,8 @@ package me.bokov.tasks.web.faces;
 
 import lombok.Getter;
 import lombok.Setter;
-import me.bokov.tasks.core.model.domain.Task;
-import me.bokov.tasks.core.task.TaskService;
+import me.bokov.tasks.core.common.domain.TaskVO;
+import me.bokov.tasks.core.service.TaskService;
 import org.primefaces.PrimeFaces;
 
 import javax.ejb.EJB;
@@ -24,7 +24,7 @@ public class CreateTaskBean {
 
     public void createTask () {
 
-        Task task = new Task ();
+        TaskVO task = new TaskVO ();
         task.setSummary (getSummary ());
         task.setDescription (getDescription ());
 

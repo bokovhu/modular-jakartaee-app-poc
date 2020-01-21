@@ -2,9 +2,9 @@ package me.bokov.tasks.web.faces;
 
 import lombok.Getter;
 import lombok.Setter;
-import me.bokov.tasks.core.model.domain.Task;
-import me.bokov.tasks.core.model.event.TaskEvent;
-import me.bokov.tasks.core.task.TaskService;
+import me.bokov.tasks.core.common.domain.TaskVO;
+import me.bokov.tasks.core.common.event.TaskEvent;
+import me.bokov.tasks.core.service.TaskService;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
@@ -24,7 +24,7 @@ public class TaskListBean implements Serializable{
     @EJB
     private TaskService taskService;
 
-    private List <Task> tasks = new ArrayList<> ();
+    private List <TaskVO> tasks = new ArrayList<> ();
 
     @PostConstruct
     public void init () {

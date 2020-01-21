@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:fn="http://xmlns.jcp.org/jsp/jstl/functions"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:o="http://omnifaces.org/ui"
+      xmlns:ofn="http://omnifaces.org/functions"
+      xmlns:pt="http://xmlns.jcp.org/jsf/passthrough">
+
+<h:head>
+
+    <title>#{ui ['actions.login']}</title>
+
+    <h:outputStylesheet library="css"
+                        name="primeflex.css"
+    />
+
+    <h:outputStylesheet library="css"
+                        name="modules/login/login.css"
+    />
+
+</h:head>
+
+<h:body>
+
+    <div class="p-grid p-justify-center p-align-center login-container">
+
+        <form action="j_security_check" method="post">
+
+            <div class="p-col">
+
+                <div class="p-grid p-justify-center p-align-center">
+
+                    <div class="p-col-12">
+                        <div class="ui-inputgroup p-justify-center">
+
+                            <span class="ui-inputgroup-addon">
+                                <i class="pi pi-user"></i>
+                            </span>
+
+
+                            <p:inputText pt:name="j_username"
+                                         type="text"
+                            />
+
+                        </div>
+                    </div>
+
+                    <div class="p-col-12">
+
+                        <div class="ui-inputgroup p-justify-center">
+
+                            <span class="ui-inputgroup-addon">
+                                <i class="pi pi-key"></i>
+                            </span>
+                            <p:inputText pt:name="j_password"
+                                         type="password"
+                            />
+
+                        </div>
+
+                    </div>
+
+                    <div class="p-col-12">
+                        <div class="p-justify-center" style="display: flex">
+                            <p:button value="#{ui ['actions.login']}"
+                                      pt:type="submit"
+                                      icon="pi pi-sign-in"
+                            />
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</h:body>
+
+</html>

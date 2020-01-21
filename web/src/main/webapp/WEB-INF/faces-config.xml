@@ -5,6 +5,25 @@
         xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_3.xsd"
         version="2.3">
 
+    <navigation-rule>
+        <from-view-id>/public/login.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>success</from-outcome>
+            <to-view-id>/secured/index.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>failure</from-outcome>
+            <to-view-id>/public/login.xhtml</to-view-id>
+            <redirect>
+                <redirect-param>
+                    <name>error</name>
+                    <value>true</value>
+                </redirect-param>
+            </redirect>
+        </navigation-case>
+    </navigation-rule>
+
     <application>
 
         <locale-config>

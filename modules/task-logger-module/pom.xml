@@ -39,7 +39,7 @@
     <dependencies>
 
         <dependency>
-            <groupId>me.bokov.tasks</groupId>
+            <groupId>me.bokov.tasks.core</groupId>
             <artifactId>core-api</artifactId>
             <version>${project.version}</version>
         </dependency>

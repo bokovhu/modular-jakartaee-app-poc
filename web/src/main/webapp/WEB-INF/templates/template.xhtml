@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:fn="http://xmlns.jcp.org/jsp/jstl/functions"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:o="http://omnifaces.org/ui"
+      xmlns:ofn="http://omnifaces.org/functions">
+
+<h:head>
+
+    <title>
+        <ui:insert name="title"></ui:insert>
+    </title>
+
+    <h:outputStylesheet library="css"
+                        name="primeflex.css"
+    />
+
+    <h:outputStylesheet library="css"
+                        name="tasks-app.css"
+    />
+
+</h:head>
+
+<h:body>
+
+    <div class="p-grid app-container">
+
+        <div class="p-col-12 app-header">
+            This is the application header
+        </div>
+
+        <div class="p-col-fixed app-sidebar">
+
+            <h:form id="mainMenuForm">
+
+                <p:menu>
+                    <c:forEach items="#{viewExtensionRegistry.getViewExtensions('mainMenu.menuItems')}"
+                               var="menuItemViewExtension">
+
+                        <ui:include src="#{menuItemViewExtension.resource}"/>
+
+                    </c:forEach>
+                </p:menu>
+
+            </h:form>
+
+        </div>
+
+        <div class="p-col app-content">
+
+            <ui:insert name="content"></ui:insert>
+
+        </div>
+
+    </div>
+
+</h:body>
+
+</html>

@@ -1,7 +1,7 @@
 package me.bokov.tasks.modules.tasklogger;
 
 import lombok.extern.slf4j.Slf4j;
-import me.bokov.tasks.core.model.event.TaskEvent;
+import me.bokov.tasks.core.common.event.TaskEvent;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.event.Observes;
