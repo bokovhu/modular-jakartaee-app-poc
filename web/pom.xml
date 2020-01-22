@@ -111,6 +111,12 @@
         </dependency>
 
         <dependency>
+            <groupId>me.bokov.tasks.modules</groupId>
+            <artifactId>authentication-module</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+
+        <dependency>
             <groupId>jakarta.platform</groupId>
             <artifactId>jakarta.jakartaee-api</artifactId>
             <scope>provided</scope>

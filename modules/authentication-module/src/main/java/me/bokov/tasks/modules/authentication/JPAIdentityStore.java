@@ -1,5 +1,7 @@
-package me.bokov.tasks.web.security;
+package me.bokov.tasks.modules.authentication;
 
+import me.bokov.tasks.core.common.user.APILoginRequest;
+import me.bokov.tasks.core.common.user.APILoginResponse;
 import me.bokov.tasks.core.common.user.LoginRequest;
 import me.bokov.tasks.core.common.user.LoginResponse;
 import me.bokov.tasks.core.model.UserPrincipal;
@@ -37,6 +39,25 @@ public class JPAIdentityStore implements IdentityStore {
                 return new CredentialValidationResult (
                         new UserPrincipal (loginResponse.getUser ()),
                         loginResponse.getUser ().getRoles ()
+                );
+            } else {
+                return CredentialValidationResult.INVALID_RESULT;
+            }
+
+        } else if (credential instanceof JWTCredential) {
+
+            JWTCredential jwt = (JWTCredential) credential;
+
+            APILoginRequest loginRequest = new APILoginRequest ();
+
+            loginRequest.setUserLoginName (jwt.getUserLoginName ());
+
+            APILoginResponse response = userService.loginForAPI (loginRequest);
+
+            if (response.isSuccessful ()) {
+                return new CredentialValidationResult (
+                        new UserPrincipal (response.getUser ()),
+                        response.getUser ().getRoles ()
                 );
             } else {
                 return CredentialValidationResult.INVALID_RESULT;

@@ -1,9 +1,7 @@
 package me.bokov.tasks.core.service;
 
 import me.bokov.tasks.core.common.domain.UserVO;
-import me.bokov.tasks.core.common.user.CreateUserRequest;
-import me.bokov.tasks.core.common.user.LoginRequest;
-import me.bokov.tasks.core.common.user.LoginResponse;
+import me.bokov.tasks.core.common.user.*;
 
 import javax.ejb.Local;
 import java.util.List;
@@ -16,5 +14,6 @@ public interface UserService {
     void updateUser (UserVO user);
     void removeUser (UserVO user);
     List <UserVO> getAllUsers ();
+    APILoginResponse loginForAPI (APILoginRequest request);
 
 }

@@ -22,6 +22,7 @@
         <module>external-web-resources-module</module>
         <module>main-menu-module</module>
         <module>language-chooser-module</module>
+        <module>authentication-module</module>
     </modules>
 
 </project>

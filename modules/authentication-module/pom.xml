@@ -10,13 +10,13 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>me.bokov.tasks.modules</groupId>
-    <artifactId>user-module</artifactId>
+    <artifactId>authentication-module</artifactId>
 
     <packaging>jar</packaging>
 
     <build>
 
-        <finalName>user-module</finalName>
+        <finalName>authentication-module</finalName>
 
         <plugins>
 
@@ -75,15 +75,9 @@
         </dependency>
 
         <dependency>
-            <groupId>org.primefaces</groupId>
-            <artifactId>primefaces</artifactId>
-            <version>${version.primefaces}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.omnifaces</groupId>
-            <artifactId>omnifaces</artifactId>
-            <version>${version.omnifaces}</version>
+            <groupId>com.auth0</groupId>
+            <artifactId>java-jwt</artifactId>
+            <version>${version.java-jwt}</version>
         </dependency>
 
     </dependencies>

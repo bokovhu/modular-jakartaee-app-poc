@@ -2,9 +2,7 @@ package me.bokov.tasks.modules.user;
 
 import at.favre.lib.crypto.bcrypt.BCrypt;
 import me.bokov.tasks.core.common.domain.UserVO;
-import me.bokov.tasks.core.common.user.CreateUserRequest;
-import me.bokov.tasks.core.common.user.LoginRequest;
-import me.bokov.tasks.core.common.user.LoginResponse;
+import me.bokov.tasks.core.common.user.*;
 import me.bokov.tasks.core.service.UserService;
 import me.bokov.tasks.dal.dao.UserDao;
 import me.bokov.tasks.dal.entity.UserEntity;
@@ -106,6 +104,23 @@ public class UserServiceBean implements UserService {
                 .map (userVOConverter::userEntityToVO)
                 .collect (Collectors.toList ());
 
+    }
+
+    @Override
+    public APILoginResponse loginForAPI (APILoginRequest request) {
+
+        APILoginResponse response = new APILoginResponse ();
+
+        UserEntity user = userDao.findByLoginName (request.getUserLoginName ());
+
+        if (user != null) {
+            response.setSuccessful (true);
+            response.setUser (userVOConverter.userEntityToVO (user));
+        } else {
+            response.setSuccessful (false);
+        }
+
+        return response;
     }
 
 }
