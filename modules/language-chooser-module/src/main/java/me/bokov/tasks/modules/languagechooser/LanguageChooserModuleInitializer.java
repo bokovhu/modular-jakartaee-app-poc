@@ -1,4 +1,4 @@
-package me.bokov.tasks.modules.task;
+package me.bokov.tasks.modules.languagechooser;
 
 import me.bokov.tasks.core.module.ModuleRegistry;
 import me.bokov.tasks.core.module.ViewExtension;
@@ -12,7 +12,7 @@ import javax.inject.Inject;
 
 @Singleton
 @Startup
-public class TaskModuleInitializer {
+public class LanguageChooserModuleInitializer {
 
     @EJB
     private ModuleRegistry moduleRegistry;
@@ -20,19 +20,19 @@ public class TaskModuleInitializer {
     @Inject
     private ViewExtensionRegistry viewExtensionRegistry;
 
-    private TaskModule taskModule;
+    private LanguageChooserModule languageChooserModule;
 
     @PostConstruct
     public void onInit () {
 
-        taskModule = new TaskModule ();
-        moduleRegistry.register (taskModule);
+        languageChooserModule = new LanguageChooserModule ();
+        moduleRegistry.register (languageChooserModule);
 
         viewExtensionRegistry.addViewExtension (
-                "mainMenu.menuItems",
+                "applicationSidebar",
                 new ViewExtension (
-                        "/parts/modules/task/taskMenuItem.xhtml",
-                        20
+                        "/parts/modules/language-chooser/languageChooser.xhtml",
+                        100
                 )
         );
 

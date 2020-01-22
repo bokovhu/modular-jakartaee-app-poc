@@ -9,9 +9,17 @@
                 xmlns:o="http://omnifaces.org/ui"
                 xmlns:ofn="http://omnifaces.org/functions">
 
-    <p:menuitem action="#{logoutBean.logout}"
-                value="#{ui ['actions.logout']}"
-                icon="fas fa-sign-out-alt"
-                />
+    <h:form id="mainMenuForm">
+
+        <p:menu toggleable="true">
+            <c:forEach items="#{viewExtensionRegistry.getViewExtensions('mainMenu.menuItems')}"
+                       var="ext">
+
+                <ui:include src="#{ext.resource}"/>
+
+            </c:forEach>
+        </p:menu>
+
+    </h:form>
 
 </ui:composition>

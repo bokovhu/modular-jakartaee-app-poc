@@ -3,6 +3,8 @@ package me.bokov.tasks.modules.user;
 import at.favre.lib.crypto.bcrypt.BCrypt;
 import lombok.extern.slf4j.Slf4j;
 import me.bokov.tasks.core.module.ModuleRegistry;
+import me.bokov.tasks.core.module.ViewExtension;
+import me.bokov.tasks.core.module.ViewExtensionRegistry;
 import me.bokov.tasks.dal.dao.UserDao;
 import me.bokov.tasks.dal.entity.UserEntity;
 
@@ -11,6 +13,7 @@ import javax.annotation.security.DeclareRoles;
 import javax.ejb.EJB;
 import javax.ejb.Singleton;
 import javax.ejb.Startup;
+import javax.inject.Inject;
 import java.util.Arrays;
 import java.util.HashSet;
 
@@ -22,6 +25,9 @@ public class UserModuleInitializer {
 
     @EJB
     private ModuleRegistry moduleRegistry;
+
+    @Inject
+    private ViewExtensionRegistry viewExtensionRegistry;
 
     @EJB
     private UserDao userDao;
@@ -36,6 +42,11 @@ public class UserModuleInitializer {
 
         createAdminUser ();
 
+        viewExtensionRegistry.addViewExtension (
+                "mainMenu.menuItems",
+                new ViewExtension ("/parts/modules/user/usersMenuItem.xhtml", 50)
+        );
+
     }
 
     private void createAdminUser () {
@@ -48,10 +59,10 @@ public class UserModuleInitializer {
             admin.setLoginName ("admin");
             admin.setPasswordHash (
                     BCrypt.withDefaults ()
-                    .hashToString (
-                            12,
-                            "admin".toCharArray ()
-                    )
+                            .hashToString (
+                                    12,
+                                    "admin".toCharArray ()
+                            )
             );
             admin.setEmail ("admin@company.localhost");
             admin.setRoles (

@@ -20,6 +20,8 @@
         <module>user-module</module>
         <module>login-module</module>
         <module>external-web-resources-module</module>
+        <module>main-menu-module</module>
+        <module>language-chooser-module</module>
     </modules>
 
 </project>

@@ -1,4 +1,4 @@
-package me.bokov.tasks.modules.task;
+package me.bokov.tasks.module.mainmenu;
 
 import me.bokov.tasks.core.module.ModuleRegistry;
 import me.bokov.tasks.core.module.ViewExtension;
@@ -12,7 +12,7 @@ import javax.inject.Inject;
 
 @Singleton
 @Startup
-public class TaskModuleInitializer {
+public class MainMenuModuleInitializer {
 
     @EJB
     private ModuleRegistry moduleRegistry;
@@ -20,20 +20,17 @@ public class TaskModuleInitializer {
     @Inject
     private ViewExtensionRegistry viewExtensionRegistry;
 
-    private TaskModule taskModule;
+    private MainMenuModule mainMenuModule;
 
     @PostConstruct
     public void onInit () {
 
-        taskModule = new TaskModule ();
-        moduleRegistry.register (taskModule);
+        mainMenuModule = new MainMenuModule ();
+        moduleRegistry.register (mainMenuModule);
 
         viewExtensionRegistry.addViewExtension (
-                "mainMenu.menuItems",
-                new ViewExtension (
-                        "/parts/modules/task/taskMenuItem.xhtml",
-                        20
-                )
+                "applicationSidebar",
+                new ViewExtension ("/parts/modules/main-menu/mainMenu.xhtml", 0)
         );
 
     }

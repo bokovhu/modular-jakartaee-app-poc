@@ -24,6 +24,8 @@
                         name="tasks-app.css"
     />
 
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/all.css" integrity="sha384-REHJTs1r2ErKBuJB0fCK99gCYsVjwxHrSU0N7I1zl9vZbggVJXRMsv/sLlOAGb4M" crossorigin="anonymous" />
+
 </h:head>
 
 <h:body>
@@ -31,23 +33,24 @@
     <div class="p-grid app-container">
 
         <div class="p-col-12 app-header">
-            This is the application header
+
+            <c:forEach items="#{viewExtensionRegistry.getViewExtensions('applicationHeader')}"
+                       var="ext">
+
+                <ui:include src="#{ext.resource}" />
+
+            </c:forEach>
+
         </div>
 
         <div class="p-col-fixed app-sidebar">
 
-            <h:form id="mainMenuForm">
+            <c:forEach items="#{viewExtensionRegistry.getViewExtensions('applicationSidebar')}"
+                       var="ext">
 
-                <p:menu>
-                    <c:forEach items="#{viewExtensionRegistry.getViewExtensions('mainMenu.menuItems')}"
-                               var="menuItemViewExtension">
+                <ui:include src="#{ext.resource}" />
 
-                        <ui:include src="#{menuItemViewExtension.resource}"/>
-
-                    </c:forEach>
-                </p:menu>
-
-            </h:form>
+            </c:forEach>
 
         </div>
 

@@ -12,28 +12,6 @@
 
     <ui:define name="content">
 
-        <p:panel id="languagePanel"
-                 header="Language">
-
-            <h:form id="languageForm">
-
-                <p:selectOneMenu value="#{languageBean.currentLanguage}"
-                                 id="languageSelect"
-                >
-                    <p:ajax listener="#{languageBean.onLocaleChanged}"
-                            update="@all"
-                    />
-                    <f:selectItems value="#{languageBean.supportedLocales}"
-                                   var="locale"
-                                   itemLabel="#{locale.displayName}"
-                                   itemValue="#{locale.language}"
-                    />
-                </p:selectOneMenu>
-
-            </h:form>
-
-        </p:panel>
-
         <p:panel id="createTaskPanel"
                  header="Create new task">
 

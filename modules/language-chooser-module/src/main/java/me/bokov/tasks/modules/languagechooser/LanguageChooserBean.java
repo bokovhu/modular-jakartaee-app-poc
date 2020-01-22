@@ -1,13 +1,11 @@
-package me.bokov.tasks.web.faces;
+package me.bokov.tasks.modules.languagechooser;
 
 import lombok.Getter;
 import lombok.Setter;
 import org.omnifaces.util.Faces;
-import org.primefaces.PrimeFaces;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.SessionScoped;
-import javax.faces.event.ValueChangeEvent;
 import javax.inject.Named;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -18,10 +16,10 @@ import java.util.Locale;
 @Named
 @Getter
 @Setter
-public class LanguageBean implements Serializable {
+public class LanguageChooserBean implements Serializable {
 
     private String currentLanguage = Faces.getLocale ().getLanguage ();
-    private List <Locale> supportedLocales = new ArrayList<> ();
+    private List<Locale> supportedLocales = new ArrayList<> ();
 
     @PostConstruct
     public void onInit () {

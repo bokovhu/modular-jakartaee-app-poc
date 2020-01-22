@@ -9,9 +9,16 @@
                 xmlns:o="http://omnifaces.org/ui"
                 xmlns:ofn="http://omnifaces.org/functions">
 
-    <p:menuitem action="#{logoutBean.logout}"
-                value="#{ui ['actions.logout']}"
-                icon="fas fa-sign-out-alt"
-                />
+    <p:submenu label="#{ui ['user.users']}"
+    >
+
+        <p:menuitem icon="fas fa-list"
+                    value="#{ui ['user.list_of_users']}"
+                    outcome="mainMenuUserList" />
+        <p:menuitem icon="fas fa-plus"
+                    value="#{ui ['user.create_user']}"
+                    outcome="mainMenuCreateUser" />
+
+    </p:submenu>
 
 </ui:composition>
