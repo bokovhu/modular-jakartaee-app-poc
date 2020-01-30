@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
         <artifactId>modules</artifactId>
         <groupId>me.bokov.tasks</groupId>
@@ -9,14 +7,14 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>me.bokov.tasks.modules</groupId>
-    <artifactId>main-menu-module</artifactId>
+    <groupId>${groupId}</groupId>
+    <artifactId>${artifactId}</artifactId>
 
     <packaging>jar</packaging>
 
     <build>
 
-        <finalName>main-menu-module</finalName>
+        <finalName>${artifactId}</finalName>
 
         <plugins>
 
@@ -62,17 +60,22 @@
             <scope>provided</scope>
         </dependency>
 
+        #if( $moduleExtendsFrontend.equals('true') )
+
         <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-api</artifactId>
-            <scope>provided</scope>
+            <groupId>org.primefaces</groupId>
+            <artifactId>primefaces</artifactId>
+            <version>${version.primefaces}</version>
         </dependency>
 
         <dependency>
-            <groupId>at.favre.lib</groupId>
-            <artifactId>bcrypt</artifactId>
-            <version>${version.bcrypt}</version>
+            <groupId>org.omnifaces</groupId>
+            <artifactId>omnifaces</artifactId>
+            <version>${version.omnifaces}</version>
         </dependency>
+
+        #end
 
     </dependencies>
+
 </project>

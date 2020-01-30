@@ -11,7 +11,65 @@
                 template="/WEB-INF/templates/template.xhtml">
 
     <ui:define name="content">
-        Create task
+
+        <h:form id="createTaskForm">
+
+            <p:panel header="#{ui['task.create_task']}">
+
+                <div class="p-grid p-justify-center p-align-center">
+
+                    <div class="p-col-12">
+                        <div class="ui-inputgroup p-justify-center">
+
+                            <span class="ui-inputgroup-addon">
+                                <i class="pi pi-info"></i>
+                            </span>
+
+                            <p:inputText value="#{createTaskBean.summary}"
+                            />
+
+                        </div>
+                    </div>
+
+                    <div class="p-col-12">
+                        <div class="ui-inputgroup p-justify-center">
+
+                            <span class="ui-inputgroup-addon">
+                                <i class="pi pi-briefcase"></i>
+                            </span>
+
+                            <p:inputText value="#{createTaskBean.description}"
+                            />
+
+                        </div>
+                    </div>
+
+                    <div class="p-col-12">
+                        <div class="p-justify-center" style="text-align: center">
+                            <p:selectOneMenu value="#{createTaskBean.selectedAssigneeId}"
+                            >
+                                <f:selectItems value="#{createTaskBean.selectableUsers}"
+                                               var="user"
+                                               itemValue="#{user.id}"
+                                               itemLabel="#{user.displayName}"
+                                />
+                            </p:selectOneMenu>
+                        </div>
+                    </div>
+
+                    <div class="p-col-12">
+                        <p:commandButton value="#{ui['actions.save']}"
+                                         action="#{createTaskBean.save}"
+                                         style="text-align: center"
+                        />
+                    </div>
+
+                </div>
+
+            </p:panel>
+
+        </h:form>
+
     </ui:define>
 
 </ui:composition>

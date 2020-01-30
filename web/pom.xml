@@ -29,6 +29,9 @@
             <plugin>
 
                 <artifactId>maven-war-plugin</artifactId>
+                <configuration>
+                    <outputFileNameMapping>@{artifactId}@.@{extension}@</outputFileNameMapping>
+                </configuration>
 
             </plugin>
 
@@ -107,6 +110,12 @@
         <dependency>
             <groupId>me.bokov.tasks.modules</groupId>
             <artifactId>language-chooser-module</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>me.bokov.tasks.modules</groupId>
+            <artifactId>thymeleaf-module</artifactId>
             <version>${project.version}</version>
         </dependency>
 

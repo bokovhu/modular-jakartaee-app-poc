@@ -12,6 +12,7 @@
         <module>web</module>
         <module>modules</module>
         <module>core</module>
+        <module>module-archetype</module>
     </modules>
 
     <packaging>pom</packaging>
@@ -30,6 +31,7 @@
         <version.maven.ear>3.0.2</version.maven.ear>
         <version.maven.ejb>3.0.1</version.maven.ejb>
         <version.maven.war>3.2.3</version.maven.war>
+        <version.maven.surefire>3.0.0-M4</version.maven.surefire>
 
         <java.source>11</java.source>
         <java.target>11</java.target>
@@ -41,9 +43,12 @@
         <version.omnifaces>3.4.1</version.omnifaces>
         <version.slf4j>1.7.28</version.slf4j>
         <version.lombok>1.18.10</version.lombok>
-
+        <version.thymeleaf>3.0.11.RELEASE</version.thymeleaf>
         <version.bcrypt>0.9.0</version.bcrypt>
         <version.java-jwt>3.9.0</version.java-jwt>
+
+        <version.test.junit5>5.6.0</version.test.junit5>
+
     </properties>
 
     <dependencyManagement>
@@ -87,6 +92,20 @@
                 <groupId>org.projectlombok</groupId>
                 <artifactId>lombok</artifactId>
                 <version>${version.lombok}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.junit.jupiter</groupId>
+                <artifactId>junit-jupiter-api</artifactId>
+                <version>${version.test.junit5}</version>
+                <scope>test</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>org.junit.jupiter</groupId>
+                <artifactId>junit-jupiter-engine</artifactId>
+                <version>${version.test.junit5}</version>
+                <scope>test</scope>
             </dependency>
 
         </dependencies>
@@ -147,6 +166,14 @@
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-ejb-plugin</artifactId>
                     <version>${version.maven.ejb}</version>
+
+                </plugin>
+
+                <plugin>
+
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-surefire-plugin</artifactId>
+                    <version>${version.maven.surefire}</version>
 
                 </plugin>
 

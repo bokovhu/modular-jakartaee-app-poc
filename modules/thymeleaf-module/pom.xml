@@ -10,13 +10,13 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>me.bokov.tasks.modules</groupId>
-    <artifactId>main-menu-module</artifactId>
+    <artifactId>thymeleaf-module</artifactId>
 
     <packaging>jar</packaging>
 
     <build>
 
-        <finalName>main-menu-module</finalName>
+        <finalName>thymeleaf-module</finalName>
 
         <plugins>
 
@@ -69,10 +69,17 @@
         </dependency>
 
         <dependency>
-            <groupId>at.favre.lib</groupId>
-            <artifactId>bcrypt</artifactId>
-            <version>${version.bcrypt}</version>
+            <groupId>org.thymeleaf</groupId>
+            <artifactId>thymeleaf</artifactId>
+            <version>${version.thymeleaf}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>hu.inbuss</groupId>
+            <artifactId>thymeleaf-cdi</artifactId>
+            <version>0.0.9</version>
         </dependency>
 
     </dependencies>
+
 </project>

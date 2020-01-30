@@ -23,6 +23,7 @@
         <module>main-menu-module</module>
         <module>language-chooser-module</module>
         <module>authentication-module</module>
+        <module>thymeleaf-module</module>
     </modules>
 
 </project>

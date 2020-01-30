@@ -12,34 +12,6 @@
 
     <ui:define name="content">
 
-        <p:panel id="createTaskPanel"
-                 header="Create new task">
-
-            <h:form id="createTaskForm">
-
-                <p:panelGrid columns="2">
-
-                    <p:outputLabel value="#{ui ['task.summary']}"
-                                   for="newTaskSummary"/>
-                    <p:inputText value="#{createTaskBean.summary}"
-                                 id="newTaskSummary"/>
-
-                    <p:outputLabel value="#{ui['task.description']}"
-                                   for="newTaskDescription"/>
-                    <p:inputText value="#{createTaskBean.description}"
-                                 id="newTaskDescription"/>
-
-                </p:panelGrid>
-
-                <p:commandButton value="#{ui ['actions.create']}"
-                                 action="#{createTaskBean.createTask}"
-                                 update="@form"
-                />
-
-            </h:form>
-
-        </p:panel>
-
         <p:panel id="taskListPanel"
                  header="#{ui ['task.tasks']}">
 
